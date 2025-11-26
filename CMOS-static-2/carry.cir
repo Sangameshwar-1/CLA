@@ -1,0 +1,43 @@
+* 5-bit Carry Lookahead Unit (with C0=0 assumption)
+* Inputs: p0-p4, g0bar-g4bar
+* Outputs: c1-c5
+.subckt carry p0 p1 p2 p3 p4 g0bar g1bar g2bar g3bar g4bar c1 c2 c3 c4 c5 vdd gnd 
+
+* Invert g_bar signals to get g signals
+Xinv_g0 g0bar g0 vdd gnd inv
+Xinv_g1 g1bar g1 vdd gnd inv
+Xinv_g2 g2bar g2 vdd gnd inv
+Xinv_g3 g3bar g3 vdd gnd inv
+Xinv_g4 g4bar g4 vdd gnd inv
+
+* ===== C1 = G0 (since C0=0, P0·C0=0) =====
+Xbuf_c1_inv g0 c1_inv vdd gnd inv
+Xbuf_c1 c1_inv c1 vdd gnd inv
+
+* ===== C2 = G1 + P1·G0 =====
+* C2 = NAND(G1bar, NAND(P1,G0))
+Xnand_p1g0 p1 g0 c2_nand vdd gnd nand_2
+Xnand_c2 g1bar c2_nand c2 vdd gnd nand_2
+
+* ===== C3 = G2 + P2·G1 + P2·P1·G0 =====
+* C3 = NAND(G2bar, NAND(P2,G1), NAND(P2,P1,G0))
+Xnand_p2g1 p2 g1 c3_nand1 vdd gnd nand_2
+Xnand_p2p1g0 p2 p1 g0 c3_nand2 vdd gnd nand_3
+Xnand_c3 g2bar c3_nand1 c3_nand2 c3 vdd gnd nand_3
+
+* ===== C4 = G3 + P3·G2 + P3·P2·G1 + P3·P2·P1·G0 =====
+* C4 = NAND(G3bar, NAND(P3,G2), NAND(P3,P2,G1), NAND(P3,P2,P1,G0))
+Xnand_p3g2 p3 g2 c4_nand1 vdd gnd nand_2
+Xnand_p3p2g1 p3 p2 g1 c4_nand2 vdd gnd nand_3
+Xnand_p3p2p1g0 p3 p2 p1 g0 c4_nand3 vdd gnd nand_4
+Xnand_c4 g3bar c4_nand1 c4_nand2 c4_nand3 c4 vdd gnd nand_4
+
+* ===== C5 = G4 + P4·G3 + P4·P3·G2 + P4·P3·P2·G1 + P4·P3·P2·P1·G0 =====
+* C5 = NAND(G4bar, NAND(P4,G3), NAND(P4,P3,G2), NAND(P4,P3,P2,G1), NAND(P4,P3,P2,P1,G0))
+Xnand_p4g3 p4 g3 c5_nand1 vdd gnd nand_2
+Xnand_p4p3g2 p4 p3 g2 c5_nand2 vdd gnd nand_3
+Xnand_p4p3p2g1 p4 p3 p2 g1 c5_nand3 vdd gnd nand_4
+Xnand_p4p3p2p1g0 p4 p3 p2 p1 g0 c5_nand4 vdd gnd nand_5
+Xnand_c5 g4bar c5_nand1 c5_nand2 c5_nand3 c5_nand4 c5 vdd gnd nand_5
+
+.ends carry

@@ -1,0 +1,9 @@
+* Generate inverted carry generate signals (G_bar)
+* G_bar_i = NAND(A_i, B_i)
+.subckt gi a0 a1 a2 a3 a4 b0 b1 b2 b3 b4 g0bar g1bar g2bar g3bar g4bar vdd gnd
+Xnand_g0 a0 b0 g0bar vdd gnd nand_2
+Xnand_g1 a1 b1 g1bar vdd gnd nand_2
+Xnand_g2 a2 b2 g2bar vdd gnd nand_2
+Xnand_g3 a3 b3 g3bar vdd gnd nand_2
+Xnand_g4 a4 b4 g4bar vdd gnd nand_2
+.ends gi

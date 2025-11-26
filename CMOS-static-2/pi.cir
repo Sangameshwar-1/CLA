@@ -1,0 +1,7 @@
+.subckt pi a0 a1 a2 a3 a4 b0 b1 b2 b3 b4 p0 p1 p2 p3 p4 vdd gnd 
+xaxorb0 a0 b0 p0 vdd gnd xor2
+xaxorb1 a1 b1 p1 vdd gnd xor2
+xaxorb2 a2 b2 p2 vdd gnd xor2
+xaxorb3 a3 b3 p3 vdd gnd xor2
+xaxorb4 a4 b4 p4 vdd gnd xor2
+.ends pi
