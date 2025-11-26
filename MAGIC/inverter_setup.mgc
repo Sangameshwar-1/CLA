@@ -1,0 +1,95 @@
+# inverter_setup.mgc
+# Magic script (console commands) to create a simple CMOS inverter layout
+# Designed using lambda grid. Coordinates are in units of lambda (λ).
+# Usage: Start magic with your tech file, then run: source inverter_setup.mgc
+# Example: magic -T SCN6M_DEEP.09.tech27
+# Then in the magic console: source inverter_setup.mgc
+
+# Clear any existing cell and create a new cell named inverter
+cellname inverter
+# Set grid visible (optional)
+# g
+
+# CMOS inverter with Wp/Wn = 20λ/10λ, λ = 0.09µm
+# Updated sizes applied.
+
+# Create a background N-well area (25 x 23 λ)
+box 0 0 25 23
+paint nwell
+
+# Make p-diffusion region for pMOS (inside the nwell)
+box 6 12 19 20
+paint pdiffusion
+
+# Make n-diffusion region for nMOS
+box 6 2 19 10
+paint ndiffusion
+
+# Draw polysilicon gate crossing both diffusions (channel length = 2λ)
+# Here gate runs from y=4 to y=18 to cross both devices vertically
+box 10 4 12 18
+paint poly
+
+# Create poly contacts for gate connection
+# (polycontact will be placed where poly meets metal or where required)
+box 11 10 11 10
+paint polycontact
+
+# Place source/drain contacts: pdcontact for pMOS source (top) and drain
+# For pMOS source (connect to VDD):
+box 8 18 10 20
+paint metal1
+box 8 18 10 20
+paint pdcontact
+
+# For pMOS drain (connection to output):
+box 13 14 15 16
+paint pdcontact
+
+# For nMOS source (connect to GND):
+box 8 0 10 2
+paint metal1
+box 8 0 10 2
+paint ndcontact
+
+# For nMOS drain (connection to output):
+box 13 6 15 8
+paint ndcontact
+
+# Connect drains together with metal1 to form the output node
+box 12 8 16 14
+paint metal1
+
+# Make VDD and GND rails (metal1)
+box 0 20 25 21
+paint metal1
+box 0 0 25 1
+paint metal1
+
+# Add contacts from VDD rail to pMOS source diffusion
+box 9 18 9 18
+paint pdcontact
+box 9 19 9 19
+paint metal1
+
+# Label pins: VDD, GND, IN, OUT
+select 9 20 11 21
+label VDD
+select 9 0 11 1
+label GND
+# Label gate poly as IN (place small metal over polycontact)
+select 11 10 11 10
+label IN
+# Label output metal as OUT
+select 14 11 14 11
+label OUT
+
+# Do a DRC check and save
+drc
+save inverter.mag
+
+# Extract and convert to spice-ready netlist (optional commands; run in magic console)
+# extract all
+# ext2spice -c 1fF inverter.ext
+
+# End of script

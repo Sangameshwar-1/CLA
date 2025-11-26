@@ -1,0 +1,287 @@
+* Test file for 3-input XOR gate (Magic extracted - EXOR)
+* ==========================================================
+
+.include "/home/sangam/Documents/VLSI_PROJ_2017/MAGIC/TSMC_180nm.txt"
+
+* SPICE3 file created from exor.ext - technology: scmos
+.option scale=0.09u
+
+.subckt xor3 a b c axorb axorbxorc vdd gnd
+* SPICE3 file created from xor22.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 a_164_1182# 3 vdd w_158_1153# CMOSP w=80 l=2
++  ad=480 pd=172 as=880 ps=352
+M1001 a_266_1166# 2 p0 Gnd CMOSN w=40 l=2
++  ad=240 pd=92 as=400 ps=180
+M1002 p0 3 a_266_1182# Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=240 ps=92
+M1003 gnd 5 a_266_1166# Gnd CMOSN w=40 l=2
++  ad=440 pd=192 as=0 ps=0
+M1004 a_164_1166# 6 p0 w_158_1153# CMOSP w=80 l=2
++  ad=480 pd=172 as=800 ps=340
+M1005 vdd 3 2 w_89_1106# CMOSP w=40 l=2
++  ad=0 pd=0 as=200 ps=90
+M1006 vdd a_59_1237# 5 w_90_1226# CMOSP w=40 l=2
++  ad=0 pd=0 as=200 ps=90
+M1007 p0 5 a_164_1182# w_158_1153# CMOSP w=80 l=2
++  ad=0 pd=0 as=0 ps=0
+M1008 a_266_1182# 6 gnd Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1009 gnd 3 2 Gnd CMOSN w=20 l=2
++  ad=0 pd=0 as=100 ps=50
+M1010 vdd 2 a_164_1166# w_158_1153# CMOSP w=80 l=2
++  ad=0 pd=0 as=0 ps=0
+M1011 gnd a_59_1237# 5 Gnd CMOSN w=20 l=2
++  ad=0 pd=0 as=100 ps=50
+C0 5 6 0.11fF
+C1 vdd w_90_1226# 0.11fF
+C2 2 w_89_1106# 0.06fF
+C3 vdd a_164_1166# 0.82fF
+C4 vdd gnd 0.40fF
+C5 a_266_1166# gnd 0.41fF
+C6 5 a_59_1237# 0.05fF
+C7 gnd 3 0.12fF
+C8 vdd a_164_1182# 0.86fF
+C9 p0 gnd 0.03fF
+C10 p0 a_164_1166# 0.82fF
+C11 p0 a_164_1182# 0.82fF
+C12 a_59_1237# 6 0.05fF
+C13 5 w_90_1226# 0.06fF
+C14 w_158_1153# a_164_1166# 0.01fF
+C15 vdd 3 0.29fF
+C16 p0 vdd 0.03fF
+C17 w_158_1153# a_164_1182# 0.01fF
+C18 2 gnd 0.21fF
+C19 p0 a_266_1166# 0.45fF
+C20 p0 3 0.17fF
+C21 5 gnd 0.28fF
+C22 w_158_1153# vdd 0.05fF
+C23 6 gnd 0.73fF
+C24 w_158_1153# 3 0.08fF
+C25 2 vdd 0.93fF
+C26 p0 w_158_1153# 0.21fF
+C27 w_90_1226# a_59_1237# 0.06fF
+C28 2 3 0.55fF
+C29 2 p0 0.17fF
+C30 5 vdd 0.75fF
+C31 a_266_1182# gnd 0.41fF
+C32 5 3 0.76fF
+C33 5 p0 0.01fF
+C34 vdd 6 0.31fF
+C35 a_59_1237# gnd 0.05fF
+C36 6 3 0.19fF
+C37 p0 6 0.01fF
+C38 2 w_158_1153# 0.08fF
+C39 5 w_158_1153# 0.06fF
+C40 2 5 0.04fF
+C41 vdd a_59_1237# 0.02fF
+C42 w_89_1106# vdd 0.11fF
+C43 p0 a_266_1182# 0.45fF
+C44 w_158_1153# 6 0.06fF
+C45 w_89_1106# 3 0.06fF
+C46 2 6 0.46fF
+C47 a_266_1166# Gnd 0.01fF
+C48 2 Gnd 1.01fF
+C49 a_266_1182# Gnd 0.01fF
+C50 6 Gnd 0.06fF
+C51 3 Gnd 1.02fF
+C52 p0 Gnd 0.28fF
+C53 5 Gnd 2.07fF
+C54 vdd Gnd 1.72fF
+C55 a_59_1237# Gnd 0.15fF
+C56 gnd Gnd 5.76fF
+C57 w_89_1106# Gnd 1.35fF
+C58 w_158_1153# Gnd 4.44fF
+C59 w_90_1226# Gnd 1.35fF
+
+
+.ends xor3
+
+* ========== TESTBENCH ==========
+
+.param SUPPLY=1.8
+.global gnd vdd
+
+VDD vdd gnd {SUPPLY}
+
+* Truth Table for 3-input XOR
+* A B C | AXORB (A^B) | AXORBXORC (A^B^C)
+* 0 0 0 |      0      |       0
+* 0 0 1 |      0      |       1
+* 0 1 0 |      1      |       1
+* 0 1 1 |      1      |       0
+* 1 0 0 |      1      |       1
+* 1 0 1 |      1      |       0
+* 1 1 0 |      0      |       0
+* 1 1 1 |      0      |       1
+
+* Test all 8 combinations
+VA_000 a_000 gnd 0
+VB_000 b_000 gnd 0
+VC_000 c_000 gnd 0
+Xxor_000 a_000 b_000 c_000 axorb_000 axorbxorc_000 vdd gnd xor3
+Cload_000_1 axorb_000 gnd 10f
+Cload_000_2 axorbxorc_000 gnd 10f
+
+VA_001 a_001 gnd 0
+VB_001 b_001 gnd 0
+VC_001 c_001 gnd {SUPPLY}
+Xxor_001 a_001 b_001 c_001 axorb_001 axorbxorc_001 vdd gnd xor3
+Cload_001_1 axorb_001 gnd 10f
+Cload_001_2 axorbxorc_001 gnd 10f
+
+VA_010 a_010 gnd 0
+VB_010 b_010 gnd {SUPPLY}
+VC_010 c_010 gnd 0
+Xxor_010 a_010 b_010 c_010 axorb_010 axorbxorc_010 vdd gnd xor3
+Cload_010_1 axorb_010 gnd 10f
+Cload_010_2 axorbxorc_010 gnd 10f
+
+VA_011 a_011 gnd 0
+VB_011 b_011 gnd {SUPPLY}
+VC_011 c_011 gnd {SUPPLY}
+Xxor_011 a_011 b_011 c_011 axorb_011 axorbxorc_011 vdd gnd xor3
+Cload_011_1 axorb_011 gnd 10f
+Cload_011_2 axorbxorc_011 gnd 10f
+
+VA_100 a_100 gnd {SUPPLY}
+VB_100 b_100 gnd 0
+VC_100 c_100 gnd 0
+Xxor_100 a_100 b_100 c_100 axorb_100 axorbxorc_100 vdd gnd xor3
+Cload_100_1 axorb_100 gnd 10f
+Cload_100_2 axorbxorc_100 gnd 10f
+
+VA_101 a_101 gnd {SUPPLY}
+VB_101 b_101 gnd 0
+VC_101 c_101 gnd {SUPPLY}
+Xxor_101 a_101 b_101 c_101 axorb_101 axorbxorc_101 vdd gnd xor3
+Cload_101_1 axorb_101 gnd 10f
+Cload_101_2 axorbxorc_101 gnd 10f
+
+VA_110 a_110 gnd {SUPPLY}
+VB_110 b_110 gnd {SUPPLY}
+VC_110 c_110 gnd 0
+Xxor_110 a_110 b_110 c_110 axorb_110 axorbxorc_110 vdd gnd xor3
+Cload_110_1 axorb_110 gnd 10f
+Cload_110_2 axorbxorc_110 gnd 10f
+
+VA_111 a_111 gnd {SUPPLY}
+VB_111 b_111 gnd {SUPPLY}
+VC_111 c_111 gnd {SUPPLY}
+Xxor_111 a_111 b_111 c_111 axorb_111 axorbxorc_111 vdd gnd xor3
+Cload_111_1 axorb_111 gnd 10f
+Cload_111_2 axorbxorc_111 gnd 10f
+
+* Dynamic test with pulses
+VA_dyn a_dyn gnd PULSE(0 {SUPPLY} 1n 100p 100p 2n 4n)
+VB_dyn b_dyn gnd PULSE(0 {SUPPLY} 2n 100p 100p 4n 8n)
+VC_dyn c_dyn gnd PULSE(0 {SUPPLY} 4n 100p 100p 8n 16n)
+Xxor_dyn a_dyn b_dyn c_dyn axorb_dyn axorbxorc_dyn vdd gnd xor3
+Cload_dyn_1 axorb_dyn gnd 10f
+Cload_dyn_2 axorbxorc_dyn gnd 10f
+
+.control
+set numdgt=12
+
+echo ""
+echo "=========================================="
+echo "  3-INPUT XOR GATE TRUTH TABLE TEST"
+echo "=========================================="
+echo "  (Magic Extracted EXOR - TSMC 180nm)"
+echo "  AXORB = A XOR B (intermediate)"
+echo "  AXORBXORC = (A XOR B) XOR C (final)"
+echo ""
+
+* DC Operating Point
+op
+
+echo "Truth Table Verification:"
+echo "  A B C | AXORB | AXORBXORC | Expected"
+echo "  ------+-------+-----------+---------"
+
+* Test 000
+let axorb_000 = v(axorb_000)
+let axorbxorc_000 = v(axorbxorc_000)
+if axorb_000 < 0.3 & axorbxorc_000 < 0.3
+  echo "  0 0 0 |   0   |     0     |  0,0     PASS"
+else
+  echo "  0 0 0 |   " $&axorb_000 " |     " $&axorbxorc_000 " |  0,0     FAIL"
+end
+
+* Test 001
+let axorb_001 = v(axorb_001)
+let axorbxorc_001 = v(axorbxorc_001)
+if axorb_001 < 0.3 & axorbxorc_001 > 1.5
+  echo "  0 0 1 |   0   |     1     |  0,1     PASS"
+else
+  echo "  0 0 1 |   " $&axorb_001 " |     " $&axorbxorc_001 " |  0,1     FAIL"
+end
+
+* Test 010
+let axorb_010 = v(axorb_010)
+let axorbxorc_010 = v(axorbxorc_010)
+if axorb_010 > 1.5 & axorbxorc_010 > 1.5
+  echo "  0 1 0 |   1   |     1     |  1,1     PASS"
+else
+  echo "  0 1 0 |   " $&axorb_010 " |     " $&axorbxorc_010 " |  1,1     FAIL"
+end
+
+* Test 011
+let axorb_011 = v(axorb_011)
+let axorbxorc_011 = v(axorbxorc_011)
+if axorb_011 > 1.5 & axorbxorc_011 < 0.3
+  echo "  0 1 1 |   1   |     0     |  1,0     PASS"
+else
+  echo "  0 1 1 |   " $&axorb_011 " |     " $&axorbxorc_011 " |  1,0     FAIL"
+end
+
+* Test 100
+let axorb_100 = v(axorb_100)
+let axorbxorc_100 = v(axorbxorc_100)
+if axorb_100 > 1.5 & axorbxorc_100 > 1.5
+  echo "  1 0 0 |   1   |     1     |  1,1     PASS"
+else
+  echo "  1 0 0 |   " $&axorb_100 " |     " $&axorbxorc_100 " |  1,1     FAIL"
+end
+
+* Test 101
+let axorb_101 = v(axorb_101)
+let axorbxorc_101 = v(axorbxorc_101)
+if axorb_101 > 1.5 & axorbxorc_101 < 0.3
+  echo "  1 0 1 |   1   |     0     |  1,0     PASS"
+else
+  echo "  1 0 1 |   " $&axorb_101 " |     " $&axorbxorc_101 " |  1,0     FAIL"
+end
+
+* Test 110
+let axorb_110 = v(axorb_110)
+let axorbxorc_110 = v(axorbxorc_110)
+if axorb_110 < 0.3 & axorbxorc_110 < 0.3
+  echo "  1 1 0 |   0   |     0     |  0,0     PASS"
+else
+  echo "  1 1 0 |   " $&axorb_110 " |     " $&axorbxorc_110 " |  0,0     FAIL"
+end
+
+* Test 111
+let axorb_111 = v(axorb_111)
+let axorbxorc_111 = v(axorbxorc_111)
+if axorb_111 < 0.3 & axorbxorc_111 > 1.5
+  echo "  1 1 1 |   0   |     1     |  0,1     PASS"
+else
+  echo "  1 1 1 |   " $&axorb_111 " |     " $&axorbxorc_111 " |  0,1     FAIL"
+end
+
+echo ""
+echo "=========================================="
+echo "  DYNAMIC TRANSIENT ANALYSIS"
+echo "=========================================="
+echo ""
+
+tran 10p 20n
+
+plot v(a_dyn) v(b_dyn) v(c_dyn) v(2) v(3) v(4) v(5) v(6) v(p0) title 'XOR3 Internal Nodes'
+
+.endc
+.end

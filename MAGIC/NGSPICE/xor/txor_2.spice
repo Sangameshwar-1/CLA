@@ -1,0 +1,88 @@
+* SPICE3 file created from txor_2.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 a_93_50# b gnd Gnd CMOSN w=40 l=2
++  ad=240 pd=92 as=440 ps=192
+M1001 a_77_112# b xor w_64_106# CMOSP w=80 l=2
++  ad=480 pd=172 as=800 ps=340
+M1002 gnd a_148_217# a_73_39# Gnd CMOSN w=20 l=2
++  ad=0 pd=0 as=100 ps=50
+M1003 a_77_50# a_23_221# xor Gnd CMOSN w=40 l=2
++  ad=240 pd=92 as=400 ps=180
+M1004 vdd a_23_221# a_77_112# w_64_106# CMOSP w=80 l=2
++  ad=880 pd=352 as=0 ps=0
+M1005 gnd a a_23_221# Gnd CMOSN w=20 l=2
++  ad=0 pd=0 as=100 ps=50
+M1006 xor a a_93_50# Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1007 xor a_73_39# a_93_112# w_64_106# CMOSP w=80 l=2
++  ad=0 pd=0 as=480 ps=172
+M1008 a_93_112# a vdd w_64_106# CMOSP w=80 l=2
++  ad=0 pd=0 as=0 ps=0
+M1009 vdd a_148_217# a_73_39# w_137_210# CMOSP w=40 l=2
++  ad=0 pd=0 as=200 ps=90
+M1010 gnd a_73_39# a_77_50# Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1011 vdd a a_23_221# w_17_211# CMOSP w=40 l=2
++  ad=0 pd=0 as=200 ps=90
+C0 a b 0.19fF
+C1 vdd a_23_221# 0.93fF
+C2 a_148_217# vdd 0.02fF
+C3 a_23_221# w_64_106# 0.08fF
+C4 a_73_39# b 0.11fF
+C5 a_93_112# xor 0.82fF
+C6 xor a_77_112# 0.82fF
+C7 xor a_77_50# 0.45fF
+C8 a_73_39# a 0.76fF
+C9 xor b 0.01fF
+C10 a_73_39# w_137_210# 0.06fF
+C11 a_23_221# w_17_211# 0.06fF
+C12 gnd a_77_50# 0.41fF
+C13 gnd b 0.46fF
+C14 a_23_221# b 0.46fF
+C15 a_148_217# b 0.04fF
+C16 xor a 0.17fF
+C17 vdd w_64_106# 0.05fF
+C18 a gnd 0.05fF
+C19 xor a_93_50# 0.45fF
+C20 a_73_39# xor 0.01fF
+C21 a a_23_221# 0.55fF
+C22 gnd a_93_50# 0.41fF
+C23 a_73_39# gnd 0.28fF
+C24 a_148_217# w_137_210# 0.06fF
+C25 a_93_112# vdd 0.86fF
+C26 a_73_39# a_23_221# 0.04fF
+C27 a_148_217# a_73_39# 0.05fF
+C28 a_93_112# w_64_106# 0.01fF
+C29 vdd w_17_211# 0.11fF
+C30 vdd a_77_112# 0.82fF
+C31 xor gnd 0.03fF
+C32 a_77_112# w_64_106# 0.01fF
+C33 vdd b 0.16fF
+C34 xor a_23_221# 0.17fF
+C35 b w_64_106# 0.06fF
+C36 gnd a_23_221# 0.99fF
+C37 a_148_217# gnd 0.05fF
+C38 a vdd 0.23fF
+C39 vdd w_137_210# 0.11fF
+C40 a w_64_106# 0.08fF
+C41 a_73_39# vdd 0.75fF
+C42 a_73_39# w_64_106# 0.06fF
+C43 xor vdd 0.03fF
+C44 a w_17_211# 0.06fF
+C45 vdd gnd 0.09fF
+C46 xor w_64_106# 0.21fF
+C47 a_93_50# Gnd 0.01fF
+C48 a_77_50# Gnd 0.01fF
+C49 xor Gnd 0.28fF
+C50 b Gnd 6.23fF
+C51 vdd Gnd 1.64fF
+C52 a_73_39# Gnd 2.07fF
+C53 a_148_217# Gnd 0.15fF
+C54 gnd Gnd 7.23fF
+C55 a_23_221# Gnd 1.01fF
+C56 a Gnd 0.95fF
+C57 w_64_106# Gnd 4.44fF
+C58 w_137_210# Gnd 1.35fF
+C59 w_17_211# Gnd 1.35fF

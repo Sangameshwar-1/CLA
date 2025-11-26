@@ -1,0 +1,87 @@
+* SPICE3 file created from xor22.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 a_164_1182# 3 vdd w_158_1153# CMOSP w=80 l=2
++  ad=480 pd=172 as=880 ps=352
+M1001 a_266_1166# 4 p0 Gnd CMOSN w=40 l=2
++  ad=240 pd=92 as=400 ps=180
+M1002 p0 3 a_266_1182# Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=240 ps=92
+M1003 gnd 5 a_266_1166# Gnd CMOSN w=40 l=2
++  ad=440 pd=192 as=0 ps=0
+M1004 a_164_1166# 6 p0 w_158_1153# CMOSP w=80 l=2
++  ad=480 pd=172 as=800 ps=340
+M1005 vdd 3 5 w_89_1106# CMOSP w=40 l=2
++  ad=0 pd=0 as=200 ps=90
+M1006 vdd a_59_1237# 4 w_90_1226# CMOSP w=40 l=2
++  ad=0 pd=0 as=200 ps=90
+M1007 p0 4 a_164_1182# w_158_1153# CMOSP w=80 l=2
++  ad=0 pd=0 as=0 ps=0
+M1008 a_266_1182# 6 gnd Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1009 gnd 3 5 Gnd CMOSN w=20 l=2
++  ad=0 pd=0 as=100 ps=50
+M1010 vdd 4 a_164_1166# w_158_1153# CMOSP w=80 l=2
++  ad=0 pd=0 as=0 ps=0
+M1011 gnd a_59_1237# 4 Gnd CMOSN w=20 l=2
++  ad=0 pd=0 as=100 ps=50
+C0 gnd a_266_1166# 0.41fF
+C1 p0 a_266_1182# 0.45fF
+C2 vdd 5 0.84fF
+C3 w_158_1153# p0 0.21fF
+C4 w_158_1153# 6 0.06fF
+C5 4 a_59_1237# 0.05fF
+C6 vdd w_89_1106# 0.11fF
+C7 p0 a_266_1166# 0.45fF
+C8 4 vdd 0.84fF
+C9 5 w_89_1106# 0.06fF
+C10 4 5 0.07fF
+C11 gnd a_59_1237# 0.05fF
+C12 w_158_1153# 3 0.08fF
+C13 p0 a_164_1166# 0.82fF
+C14 gnd vdd 0.40fF
+C15 w_158_1153# a_164_1182# 0.01fF
+C16 gnd 5 0.21fF
+C17 6 a_59_1237# 0.05fF
+C18 vdd p0 0.03fF
+C19 gnd 4 0.28fF
+C20 vdd 6 0.31fF
+C21 p0 5 0.04fF
+C22 6 5 0.05fF
+C23 4 p0 0.17fF
+C24 4 6 0.57fF
+C25 vdd 3 0.29fF
+C26 vdd a_164_1182# 0.86fF
+C27 w_90_1226# a_59_1237# 0.06fF
+C28 5 3 0.05fF
+C29 w_90_1226# vdd 0.11fF
+C30 gnd p0 0.03fF
+C31 gnd 6 0.73fF
+C32 3 w_89_1106# 0.06fF
+C33 4 3 1.36fF
+C34 w_90_1226# 4 0.06fF
+C35 6 p0 0.01fF
+C36 gnd 3 0.12fF
+C37 w_158_1153# a_164_1166# 0.01fF
+C38 p0 3 0.17fF
+C39 6 3 0.19fF
+C40 w_158_1153# vdd 0.05fF
+C41 p0 a_164_1182# 0.82fF
+C42 w_158_1153# 4 0.14fF
+C43 vdd a_164_1166# 0.82fF
+C44 gnd a_266_1182# 0.41fF
+C45 vdd a_59_1237# 0.02fF
+C46 a_266_1166# Gnd 0.01fF
+C47 5 Gnd 1.45fF
+C48 a_266_1182# Gnd 0.01fF
+C49 6 Gnd 0.06fF
+C50 3 Gnd 1.02fF
+C51 p0 Gnd 0.28fF
+C52 4 Gnd 2.61fF
+C53 vdd Gnd 1.72fF
+C54 a_59_1237# Gnd 0.15fF
+C55 gnd Gnd 5.76fF
+C56 w_89_1106# Gnd 1.35fF
+C57 w_158_1153# Gnd 4.44fF
+C58 w_90_1226# Gnd 1.35fF

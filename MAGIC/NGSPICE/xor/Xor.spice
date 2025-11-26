@@ -1,0 +1,98 @@
+* SPICE3 file created from Xor.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 gnd a a_156_45# Gnd CMOSN w=40 l=2
++  ad=800 pd=360 as=240 ps=92
+M1001 gnd a_94_38# a_236_13# Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=240 ps=92
+M1002 gnd a_23_6# a_156_n19# Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=240 ps=92
+M1003 vdd a_94_n26# xor w_168_0# CMOSP w=40 l=2
++  ad=960 pd=368 as=400 ps=180
+M1004 vdd b a_94_n26# w_88_n32# CMOSP w=40 l=2
++  ad=0 pd=0 as=400 ps=180
+M1005 a_156_n19# b a_94_n26# Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=200 ps=90
+M1006 a_23_6# a vdd w_17_0# CMOSP w=40 l=2
++  ad=400 pd=180 as=0 ps=0
+M1007 a_236_13# a_94_n26# xor Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=200 ps=90
+M1008 gnd a a_85_13# Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=240 ps=92
+M1009 xor a_94_38# vdd w_168_0# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1010 vdd a_23_6# a_94_38# w_88_32# CMOSP w=40 l=2
++  ad=0 pd=0 as=400 ps=180
+M1011 a_156_45# a_23_6# a_94_38# Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=200 ps=90
+M1012 vdd b a_23_6# w_17_0# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1013 a_94_n26# a_23_6# vdd w_88_n32# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1014 a_85_13# b a_23_6# Gnd CMOSN w=40 l=2
++  ad=0 pd=0 as=200 ps=90
+M1015 a_94_38# a vdd w_88_32# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+C0 a_94_38# xor 0.08fF
+C1 a_85_13# a_23_6# 0.41fF
+C2 a_94_38# a 0.08fF
+C3 gnd a_94_n26# 0.12fF
+C4 a a_23_6# 0.40fF
+C5 xor w_168_0# 0.14fF
+C6 vdd a_94_n26# 0.90fF
+C7 vdd w_88_32# 0.50fF
+C8 b a_94_n26# 0.15fF
+C9 vdd gnd 0.10fF
+C10 vdd w_17_0# 0.06fF
+C11 a_94_38# a_94_n26# 0.31fF
+C12 w_88_n32# a_94_n26# 0.14fF
+C13 a_236_13# xor 0.41fF
+C14 vdd b 0.01fF
+C15 a_94_38# w_88_32# 0.14fF
+C16 a_94_n26# a_23_6# 0.15fF
+C17 b w_17_0# 0.08fF
+C18 gnd a_156_45# 0.41fF
+C19 a_94_38# gnd 0.04fF
+C20 w_88_32# a_23_6# 0.08fF
+C21 w_88_n32# gnd 0.03fF
+C22 a_94_38# vdd 1.30fF
+C23 w_168_0# a_94_n26# 0.08fF
+C24 w_88_n32# vdd 0.10fF
+C25 vdd a_23_6# 1.18fF
+C26 w_88_n32# b 0.08fF
+C27 w_17_0# a_23_6# 0.14fF
+C28 gnd w_168_0# 0.31fF
+C29 b a_23_6# 0.40fF
+C30 vdd w_168_0# 0.05fF
+C31 a_94_38# a_156_45# 0.41fF
+C32 a_94_38# a_23_6# 0.08fF
+C33 w_88_n32# a_23_6# 0.08fF
+C34 xor a_94_n26# 0.08fF
+C35 gnd a_85_13# 0.41fF
+C36 a_236_13# gnd 0.41fF
+C37 xor gnd 0.07fF
+C38 w_88_32# a 0.08fF
+C39 a_94_38# w_168_0# 0.08fF
+C40 vdd a_85_13# 0.09fF
+C41 xor vdd 0.90fF
+C42 a_156_n19# a_94_n26# 0.45fF
+C43 vdd a 0.33fF
+C44 a w_17_0# 0.08fF
+C45 a_156_n19# gnd 0.41fF
+C46 b a 0.27fF
+C47 a_156_n19# Gnd 0.01fF
+C48 a_236_13# Gnd 0.01fF
+C49 a_94_n26# Gnd 0.45fF
+C50 a_85_13# Gnd 0.01fF
+C51 b Gnd 0.31fF
+C52 a_156_45# Gnd 0.01fF
+C53 a_23_6# Gnd 0.43fF
+C54 vdd Gnd 0.29fF
+C55 gnd Gnd 0.01fF
+C56 a Gnd 0.31fF
+C57 a_94_38# Gnd 0.41fF
+C58 w_88_n32# Gnd 1.67fF
+C59 w_168_0# Gnd 1.03fF
+C60 w_17_0# Gnd 1.67fF
+C61 w_88_32# Gnd 0.02fF

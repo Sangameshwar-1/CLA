@@ -1,0 +1,12 @@
+* SPICE3 file created from NAND_2.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 a_2_15# a out Gnd CMOSN w=40 l=2
++  ad=240 pd=92 as=200 ps=90
+M1001 vdd a out w_n11_71# CMOSP w=40 l=2
++  ad=240 pd=92 as=400 ps=180
+M1002 gnd b a_2_15# Gnd CMOSN w=40 l=2
++  ad=200 pd=90 as=0 ps=0
+M1003 out b vdd w_n11_71# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0

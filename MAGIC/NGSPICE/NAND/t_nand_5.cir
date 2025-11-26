@@ -1,0 +1,274 @@
+* Test file for 5-input NAND gate (Magic extracted)
+* ==========================================================
+
+.include "/home/sangam/Documents/VLSI_PROJ_2017/MAGIC/TSMC_180nm.txt"
+
+* SPICE3 file created from nand_5.ext - technology: scmos
+.option scale=0.09u
+
+.subckt nand5 a b c d e out vdd gnd
+
+* SPICE3 file created from nand_5.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 out d vdd w_n11_71# CMOSP w=40 l=2
++  ad=1000 pd=450 as=680 ps=274
+M1001 out e vdd w_n11_71# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1002 a_28_n45# c a_10_n45# Gnd CMOSN w=100 l=2
++  ad=600 pd=212 as=1000 ps=420
+M1003 vdd a out w_n11_71# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1004 gnd e a_36_n45# Gnd CMOSN w=100 l=2
++  ad=500 pd=210 as=1000 ps=420
+M1005 a_36_n45# d a_28_n45# Gnd CMOSN w=100 l=2
++  ad=0 pd=0 as=0 ps=0
+M1006 vdd c out w_n11_71# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1007 a_10_n45# b a_2_n45# Gnd CMOSN w=100 l=2
++  ad=0 pd=0 as=600 ps=212
+M1008 a_2_n45# a out Gnd CMOSN w=100 l=2
++  ad=0 pd=0 as=500 ps=210
+M1009 out b vdd w_n11_71# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+C0 a_28_n45# a_10_n45# 1.03fF
+C1 a_36_n45# gnd 1.03fF
+C2 w_n11_71# d 0.08fF
+C3 w_n11_71# a 0.08fF
+C4 vdd out 2.56fF
+C5 vdd c 0.12fF
+C6 b vdd 0.12fF
+C7 out d 0.08fF
+C8 d c 0.27fF
+C9 w_n11_71# out 0.36fF
+C10 w_n11_71# c 0.08fF
+C11 w_n11_71# e 0.08fF
+C12 a out 0.08fF
+C13 a_36_n45# a_28_n45# 1.03fF
+C14 w_n11_71# b 0.08fF
+C15 b a 0.27fF
+C16 a_2_n45# out 1.03fF
+C17 a_2_n45# a_10_n45# 1.03fF
+C18 out c 0.08fF
+C19 out e 0.08fF
+C20 vdd d 0.12fF
+C21 out a_10_n45# 0.02fF
+C22 w_n11_71# vdd 0.15fF
+C23 b out 0.08fF
+C24 gnd Gnd 0.13fF
+C25 a_36_n45# Gnd 0.27fF
+C26 a_28_n45# Gnd 0.01fF
+C27 a_10_n45# Gnd 0.27fF
+C28 a_2_n45# Gnd 0.01fF
+C29 vdd Gnd 0.09fF
+C30 out Gnd 0.24fF
+C31 e Gnd 0.17fF
+C32 d Gnd 0.17fF
+C33 c Gnd 0.17fF
+C34 b Gnd 0.17fF
+C35 a Gnd 0.17fF
+C36 w_n11_71# Gnd 4.13fF
+
+
+.ends nand5
+
+* ========== TESTBENCH ==========
+
+.param SUPPLY=1.8
+.global gnd vdd
+
+VDD vdd gnd {SUPPLY}
+
+* Truth Table for 5-input NAND - Testing critical cases
+* All combinations = 2^5 = 32 cases
+* Testing: all 0s, all 1s, and some mixed cases
+
+* Test 1: All inputs = 0 -> OUT = 1
+VA_00000 a_00000 gnd 0
+VB_00000 b_00000 gnd 0
+VC_00000 c_00000 gnd 0
+VD_00000 d_00000 gnd 0
+VE_00000 e_00000 gnd 0
+Xnand_00000 a_00000 b_00000 c_00000 d_00000 e_00000 out_00000 vdd gnd nand5
+Cload_00000 out_00000 gnd 10f
+
+* Test 2: All inputs = 1 -> OUT = 0 (CRITICAL)
+VA_11111 a_11111 gnd {SUPPLY}
+VB_11111 b_11111 gnd {SUPPLY}
+VC_11111 c_11111 gnd {SUPPLY}
+VD_11111 d_11111 gnd {SUPPLY}
+VE_11111 e_11111 gnd {SUPPLY}
+Xnand_11111 a_11111 b_11111 c_11111 d_11111 e_11111 out_11111 vdd gnd nand5
+Cload_11111 out_11111 gnd 10f
+
+* Test 3: One input = 0, rest = 1 -> OUT = 1
+VA_01111 a_01111 gnd 0
+VB_01111 b_01111 gnd {SUPPLY}
+VC_01111 c_01111 gnd {SUPPLY}
+VD_01111 d_01111 gnd {SUPPLY}
+VE_01111 e_01111 gnd {SUPPLY}
+Xnand_01111 a_01111 b_01111 c_01111 d_01111 e_01111 out_01111 vdd gnd nand5
+Cload_01111 out_01111 gnd 10f
+
+* Test 4: One input = 1, rest = 0 -> OUT = 1
+VA_10000 a_10000 gnd {SUPPLY}
+VB_10000 b_10000 gnd 0
+VC_10000 c_10000 gnd 0
+VD_10000 d_10000 gnd 0
+VE_10000 e_10000 gnd 0
+Xnand_10000 a_10000 b_10000 c_10000 d_10000 e_10000 out_10000 vdd gnd nand5
+Cload_10000 out_10000 gnd 10f
+
+* Test 5: Alternating pattern 10101 -> OUT = 1
+VA_10101 a_10101 gnd {SUPPLY}
+VB_10101 b_10101 gnd 0
+VC_10101 c_10101 gnd {SUPPLY}
+VD_10101 d_10101 gnd 0
+VE_10101 e_10101 gnd {SUPPLY}
+Xnand_10101 a_10101 b_10101 c_10101 d_10101 e_10101 out_10101 vdd gnd nand5
+Cload_10101 out_10101 gnd 10f
+
+* Test 6: Alternating pattern 01010 -> OUT = 1
+VA_01010 a_01010 gnd 0
+VB_01010 b_01010 gnd {SUPPLY}
+VC_01010 c_01010 gnd 0
+VD_01010 d_01010 gnd {SUPPLY}
+VE_01010 e_01010 gnd 0
+Xnand_01010 a_01010 b_01010 c_01010 d_01010 e_01010 out_01010 vdd gnd nand5
+Cload_01010 out_01010 gnd 10f
+
+* Dynamic test with pulses
+VA_dyn a_dyn gnd PULSE(0 {SUPPLY} 1n 100p 100p 8n 16n)
+VB_dyn b_dyn gnd PULSE(0 {SUPPLY} 2n 100p 100p 16n 32n)
+VC_dyn c_dyn gnd PULSE(0 {SUPPLY} 4n 100p 100p 32n 64n)
+VD_dyn d_dyn gnd PULSE(0 {SUPPLY} 8n 100p 100p 64n 128n)
+VE_dyn e_dyn gnd PULSE(0 {SUPPLY} 16n 100p 100p 128n 256n)
+Xnand_dyn a_dyn b_dyn c_dyn d_dyn e_dyn out_dyn vdd gnd nand5
+Cload_dyn out_dyn gnd 10f
+
+.control
+set numdgt=12
+
+echo ""
+echo "=========================================="
+echo "  5-INPUT NAND GATE TRUTH TABLE TEST"
+echo "=========================================="
+echo "  (Magic Extracted Layout with TSMC 180nm)"
+echo ""
+
+* DC Operating Point
+op
+
+echo "Critical Truth Table Verification:"
+echo "  A B C D E | OUT | Expected"
+echo "  ----------+-----+---------"
+
+* Test 00000
+let v_00000 = v(out_00000)
+if v_00000 > 1.5
+  echo "  0 0 0 0 0 |  1  |    1     PASS"
+else
+  echo "  0 0 0 0 0 |  0  |    1     FAIL"
+end
+
+* Test 11111 (CRITICAL - all series NMOS must conduct)
+let v_11111 = v(out_11111)
+if v_11111 < 0.3
+  echo "  1 1 1 1 1 |  0  |    0     PASS"
+else
+  echo "  1 1 1 1 1 |  1  |    0     FAIL"
+end
+
+* Test 01111
+let v_01111 = v(out_01111)
+if v_01111 > 1.5
+  echo "  0 1 1 1 1 |  1  |    1     PASS"
+else
+  echo "  0 1 1 1 1 |  0  |    1     FAIL"
+end
+
+* Test 10000
+let v_10000 = v(out_10000)
+if v_10000 > 1.5
+  echo "  1 0 0 0 0 |  1  |    1     PASS"
+else
+  echo "  1 0 0 0 0 |  0  |    1     FAIL"
+end
+
+* Test 10101
+let v_10101 = v(out_10101)
+if v_10101 > 1.5
+  echo "  1 0 1 0 1 |  1  |    1     PASS"
+else
+  echo "  1 0 1 0 1 |  0  |    1     FAIL"
+end
+
+* Test 01010
+let v_01010 = v(out_01010)
+if v_01010 > 1.5
+  echo "  0 1 0 1 0 |  1  |    1     PASS"
+else
+  echo "  0 1 0 1 0 |  0  |    1     FAIL"
+end
+
+echo ""
+echo "=========================================="
+echo "  DYNAMIC TRANSIENT ANALYSIS"
+echo "=========================================="
+echo ""
+
+tran 10p 40n
+
+* Measure propagation delays (worst case: all inputs transition)
+meas tran tpHL TRIG v(a_dyn) VAL=0.9 RISE=1 TARG v(out_dyn) VAL=0.9 FALL=1
+meas tran tpLH TRIG v(a_dyn) VAL=0.9 FALL=1 TARG v(out_dyn) VAL=0.9 RISE=1
+let tpd_avg = (tpHL + tpLH) / 2
+
+echo "Timing Characteristics:"
+echo "  tpHL (High->Low): " $&tpHL "s"
+echo "  tpLH (Low->High): " $&tpLH "s"
+echo "  tpd (Average):    " $&tpd_avg "s"
+echo ""
+
+* Rise and fall times
+meas tran tr TRIG v(out_dyn) VAL=0.18 RISE=1 TARG v(out_dyn) VAL=1.62 RISE=1
+meas tran tf TRIG v(out_dyn) VAL=1.62 FALL=1 TARG v(out_dyn) VAL=0.18 FALL=1
+
+echo "Edge Rates:"
+echo "  Rise time (10%-90%): " $&tr "s"
+echo "  Fall time (90%-10%): " $&tf "s"
+echo ""
+echo "Note: 5 series NMOS -> expect slower fall time"
+echo ""
+
+* Measure power
+meas tran iavg AVG i(VDD) FROM=2n TO=40n
+let pavg = abs(iavg) * 1.8
+echo "Power Consumption:"
+echo "  Average Power: " $&pavg "W"
+echo ""
+
+* Check if rise time is reasonable (should be fast - parallel PMOS)
+* Check if fall time is slower (5 series NMOS)
+let ratio = tf / tr
+echo "Fall/Rise Ratio: " $&ratio
+if ratio > 2
+  echo "  WARNING: Fall time >> Rise time (expected for 5-stack)"
+end
+echo ""
+
+echo "=========================================="
+echo "  Layout Extracted - Includes Parasitics"
+echo "  5-input NAND = 5 PMOS parallel, 5 NMOS series"
+echo "=========================================="
+echo ""
+
+* Plot waveforms
+plot v(a_dyn) v(b_dyn)+2 v(c_dyn)+4 v(d_dyn)+6 v(e_dyn)+8 v(out_dyn)+10
+
+* Detailed view of critical transition (all inputs go high)
+plot v(a_dyn) v(b_dyn)+2 v(c_dyn)+4 v(d_dyn)+6 v(e_dyn)+8 v(out_dyn)+10 xlimit 30n 35n
+
+.endc
+.end

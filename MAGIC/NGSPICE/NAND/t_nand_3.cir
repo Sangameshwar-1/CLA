@@ -1,0 +1,263 @@
+* Test file for 3-input NAND gate (Magic extracted)
+* ==========================================================
+
+.include "/home/sangam/Documents/VLSI_PROJ_2017/MAGIC/TSMC_180nm.txt"
+
+* SPICE3 file created from nand_3.ext - technology: scmos
+.option scale=0.09u
+
+.subckt nand3 a b c out vdd Gnd
+
+* SPICE3 file created from nand_3.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 a_10_n5# b a_2_n5# Gnd CMOSN w=60 l=2
++  ad=600 pd=260 as=360 ps=132
+M1001 vdd a out w_n11_71# CMOSP w=40 l=2
++  ad=440 pd=182 as=600 ps=270
+M1002 vdd c out w_n11_71# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1003 a_2_n5# a out Gnd CMOSN w=60 l=2
++  ad=0 pd=0 as=300 ps=130
+M1004 out b vdd w_n11_71# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1005 gnd c a_10_n5# Gnd CMOSN w=60 l=2
++  ad=300 pd=130 as=0 ps=0
+C0 out w_n11_71# 0.21fF
+C1 b a 0.27fF
+C2 w_n11_71# c 0.08fF
+C3 out vdd 1.34fF
+C4 w_n11_71# a 0.08fF
+C5 vdd c 0.12fF
+C6 w_n11_71# b 0.08fF
+C7 out a_2_n5# 0.62fF
+C8 vdd b 0.12fF
+C9 w_n11_71# vdd 0.11fF
+C10 gnd a_10_n5# 0.62fF
+C11 a_2_n5# a_10_n5# 0.62fF
+C12 out a 0.08fF
+C13 out b 0.08fF
+C14 gnd Gnd 0.09fF
+C15 a_10_n5# Gnd 0.19fF
+C16 a_2_n5# Gnd 0.01fF
+C17 vdd Gnd 0.06fF
+C18 out Gnd 0.10fF
+C19 c Gnd 0.12fF
+C20 b Gnd 0.12fF
+C21 a Gnd 0.12fF
+C22 w_n11_71# Gnd 2.61fF
+
+
+.ends nand3
+
+* ========== TESTBENCH ==========
+
+.param SUPPLY=1.8
+.global gnd vdd
+
+VDD vdd gnd {SUPPLY}
+
+* Truth Table for 3-input NAND
+* A B C | OUT
+* 0 0 0 | 1
+* 0 0 1 | 1
+* 0 1 0 | 1
+* 0 1 1 | 1
+* 1 0 0 | 1
+* 1 0 1 | 1
+* 1 1 0 | 1
+* 1 1 1 | 0
+
+* Test 1: A=0, B=0, C=0 -> OUT=1
+VA_000 a_000 gnd 0
+VB_000 b_000 gnd 0
+VC_000 c_000 gnd 0
+Xnand_000 a_000 b_000 c_000 out_000 vdd gnd nand3
+Cload_000 out_000 gnd 10f
+
+* Test 2: A=0, B=0, C=1 -> OUT=1
+VA_001 a_001 gnd 0
+VB_001 b_001 gnd 0
+VC_001 c_001 gnd {SUPPLY}
+Xnand_001 a_001 b_001 c_001 out_001 vdd gnd nand3
+Cload_001 out_001 gnd 10f
+
+* Test 3: A=0, B=1, C=0 -> OUT=1
+VA_010 a_010 gnd 0
+VB_010 b_010 gnd {SUPPLY}
+VC_010 c_010 gnd 0
+Xnand_010 a_010 b_010 c_010 out_010 vdd gnd nand3
+Cload_010 out_010 gnd 10f
+
+* Test 4: A=0, B=1, C=1 -> OUT=1
+VA_011 a_011 gnd 0
+VB_011 b_011 gnd {SUPPLY}
+VC_011 c_011 gnd {SUPPLY}
+Xnand_011 a_011 b_011 c_011 out_011 vdd gnd nand3
+Cload_011 out_011 gnd 10f
+
+* Test 5: A=1, B=0, C=0 -> OUT=1
+VA_100 a_100 gnd {SUPPLY}
+VB_100 b_100 gnd 0
+VC_100 c_100 gnd 0
+Xnand_100 a_100 b_100 c_100 out_100 vdd gnd nand3
+Cload_100 out_100 gnd 10f
+
+* Test 6: A=1, B=0, C=1 -> OUT=1
+VA_101 a_101 gnd {SUPPLY}
+VB_101 b_101 gnd 0
+VC_101 c_101 gnd {SUPPLY}
+Xnand_101 a_101 b_101 c_101 out_101 vdd gnd nand3
+Cload_101 out_101 gnd 10f
+
+* Test 7: A=1, B=1, C=0 -> OUT=1
+VA_110 a_110 gnd {SUPPLY}
+VB_110 b_110 gnd {SUPPLY}
+VC_110 c_110 gnd 0
+Xnand_110 a_110 b_110 c_110 out_110 vdd gnd nand3
+Cload_110 out_110 gnd 10f
+
+* Test 8: A=1, B=1, C=1 -> OUT=0
+VA_111 a_111 gnd {SUPPLY}
+VB_111 b_111 gnd {SUPPLY}
+VC_111 c_111 gnd {SUPPLY}
+Xnand_111 a_111 b_111 c_111 out_111 vdd gnd nand3
+Cload_111 out_111 gnd 10f
+
+* Dynamic test with pulses
+VA_dyn a_dyn gnd PULSE(0 {SUPPLY} 1n 100p 100p 4n 8n)
+VB_dyn b_dyn gnd PULSE(0 {SUPPLY} 2n 100p 100p 8n 16n)
+VC_dyn c_dyn gnd PULSE(0 {SUPPLY} 4n 100p 100p 16n 32n)
+Xnand_dyn a_dyn b_dyn c_dyn out_dyn vdd gnd nand3
+Cload_dyn out_dyn gnd 10f
+
+.control
+set numdgt=12
+
+echo ""
+echo "=========================================="
+echo "  3-INPUT NAND GATE TRUTH TABLE TEST"
+echo "=========================================="
+echo "  (Magic Extracted Layout with TSMC 180nm)"
+echo ""
+
+* DC Operating Point
+op
+
+echo "Truth Table Verification:"
+echo "  A B C | OUT | Expected"
+echo "  ------+-----+---------"
+
+* Test 000
+let v_000 = v(out_000)
+if v_000 > 1.5
+  echo "  0 0 0 |  1  |    1     PASS"
+else
+  echo "  0 0 0 |  0  |    1     FAIL"
+end
+
+* Test 001
+let v_001 = v(out_001)
+if v_001 > 1.5
+  echo "  0 0 1 |  1  |    1     PASS"
+else
+  echo "  0 0 1 |  0  |    1     FAIL"
+end
+
+* Test 010
+let v_010 = v(out_010)
+if v_010 > 1.5
+  echo "  0 1 0 |  1  |    1     PASS"
+else
+  echo "  0 1 0 |  0  |    1     FAIL"
+end
+
+* Test 011
+let v_011 = v(out_011)
+if v_011 > 1.5
+  echo "  0 1 1 |  1  |    1     PASS"
+else
+  echo "  0 1 1 |  0  |    1     FAIL"
+end
+
+* Test 100
+let v_100 = v(out_100)
+if v_100 > 1.5
+  echo "  1 0 0 |  1  |    1     PASS"
+else
+  echo "  1 0 0 |  0  |    1     FAIL"
+end
+
+* Test 101
+let v_101 = v(out_101)
+if v_101 > 1.5
+  echo "  1 0 1 |  1  |    1     PASS"
+else
+  echo "  1 0 1 |  0  |    1     FAIL"
+end
+
+* Test 110
+let v_110 = v(out_110)
+if v_110 > 1.5
+  echo "  1 1 0 |  1  |    1     PASS"
+else
+  echo "  1 1 0 |  0  |    1     FAIL"
+end
+
+* Test 111
+let v_111 = v(out_111)
+if v_111 < 0.3
+  echo "  1 1 1 |  0  |    0     PASS"
+else
+  echo "  1 1 1 |  1  |    0     FAIL"
+end
+
+echo ""
+echo "=========================================="
+echo "  DYNAMIC TRANSIENT ANALYSIS"
+echo "=========================================="
+echo ""
+
+tran 10p 20n
+
+* Measure propagation delays (worst case: all inputs high -> low)
+meas tran tpHL TRIG v(a_dyn) VAL=0.9 RISE=1 TARG v(out_dyn) VAL=0.9 FALL=1
+meas tran tpLH TRIG v(a_dyn) VAL=0.9 FALL=1 TARG v(out_dyn) VAL=0.9 RISE=1
+let tpd_avg = (tpHL + tpLH) / 2
+
+echo "Timing Characteristics:"
+echo "  tpHL (High->Low): " $&tpHL "s"
+echo "  tpLH (Low->High): " $&tpLH "s"
+echo "  tpd (Average):    " $&tpd_avg "s"
+echo ""
+
+* Rise and fall times
+meas tran tr TRIG v(out_dyn) VAL=0.18 RISE=1 TARG v(out_dyn) VAL=1.62 RISE=1
+meas tran tf TRIG v(out_dyn) VAL=1.62 FALL=1 TARG v(out_dyn) VAL=0.18 FALL=1
+
+echo "Edge Rates:"
+echo "  Rise time (10%-90%): " $&tr "s"
+echo "  Fall time (90%-10%): " $&tf "s"
+echo ""
+
+* Measure power
+meas tran iavg AVG i(VDD) FROM=2n TO=20n
+let pavg = abs(iavg) * 1.8
+echo "Power Consumption:"
+echo "  Average Power: " $&pavg "W"
+echo ""
+
+echo "=========================================="
+echo "  Layout Extracted - Includes Parasitics"
+echo "=========================================="
+echo ""
+
+* Plot waveforms
+plot v(a_dyn) v(b_dyn)+2 v(c_dyn)+4 v(out_dyn)+6
+
+* Detailed view of first transition
+plot v(a_dyn) v(b_dyn)+2 v(c_dyn)+4 v(out_dyn)+6 xlimit 0 10n
+
+.endc
+.end

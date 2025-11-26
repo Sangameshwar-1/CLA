@@ -1,0 +1,130 @@
+* Test file for 2-input NAND gate
+* ==========================================================
+
+.include "TSMC_180nm.txt"
+
+* SPICE3 file created from NAND_2.ext - technology: scmos
+.option scale=0.09u
+
+.subckt nand2 a b out vdd gnd
+M1000 a_2_15# a out gnd CMOSN w=40 l=2
++  ad=240 pd=92 as=200 ps=90
+M1001 vdd a out vdd CMOSP w=40 l=2
++  ad=240 pd=92 as=400 ps=180
+M1002 gnd b a_2_15# gnd CMOSN w=40 l=2
++  ad=200 pd=90 as=0 ps=0
+M1003 out b vdd vdd CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+.ends
+
+.param SUPPLY=1.8
+.global gnd vdd
+
+VDD vdd gnd {SUPPLY}
+
+* Truth Table Test Vectors
+* A B | OUT
+* 0 0 | 1
+* 0 1 | 1
+* 1 0 | 1
+* 1 1 | 0
+
+* Test 1: A=0, B=0 -> OUT=1
+VA a gnd 0
+VB b gnd 0
+Xnand a b out vdd gnd nand2
+Cload out gnd 10f
+
+.control
+set numdgt=12
+
+echo ""
+echo "=========================================="
+echo "  2-INPUT NAND GATE TRUTH TABLE TEST"
+echo "=========================================="
+echo ""
+
+* Test 00
+alter VA 0
+alter VB 0
+op
+let v_00 = v(out)
+if v_00 > 1.5
+    echo "  0 0 |  1  |    1     PASS"
+else
+    echo "  0 0 |  0  |    1     FAIL"
+end
+
+* Test 01
+alter VA 0
+alter VB {SUPPLY}
+op
+let v_01 = v(out)
+if v_01 > 1.5
+    echo "  0 1 |  1  |    1     PASS"
+else
+    echo "  0 1 |  0  |    1     FAIL"
+end
+
+* Test 10
+alter VA {SUPPLY}
+alter VB 0
+op
+let v_10 = v(out)
+if v_10 > 1.5
+    echo "  1 0 |  1  |    1     PASS"
+else
+    echo "  1 0 |  0  |    1     FAIL"
+end
+
+* Test 11
+alter VA {SUPPLY}
+alter VB {SUPPLY}
+op
+let v_11 = v(out)
+if v_11 < 0.3
+    echo "  1 1 |  0  |    0     PASS"
+else
+    echo "  1 1 |  1  |    0     FAIL"
+end
+
+echo ""
+echo "=========================================="
+echo "  DYNAMIC TRANSIENT ANALYSIS"
+echo "=========================================="
+echo ""
+
+* Dynamic test with pulses
+alter VA PULSE(0 {SUPPLY} 1n 100p 100p 2n 4n)
+alter VB PULSE(0 {SUPPLY} 2n 100p 100p 4n 8n)
+
+tran 10p 10n
+
+* Measure propagation delays
+meas tran tpHL TRIG v(a) VAL=0.9 RISE=1 TARG v(out) VAL=0.9 FALL=1
+meas tran tpLH TRIG v(a) VAL=0.9 FALL=1 TARG v(out) VAL=0.9 RISE=1
+let tpd_avg = (tpHL + tpLH) / 2
+
+echo "Timing Characteristics:"
+echo "  tpHL (High->Low): " $&tpHL "s"
+echo "  tpLH (Low->High): " $&tpLH "s"
+echo "  tpd (Average):    " $&tpd_avg "s"
+echo ""
+
+* Measure power
+meas tran iavg AVG i(VDD) FROM=2n TO=10n
+let pavg = abs(iavg) * 1.8
+echo "Power Consumption:"
+echo "  Average Power: " $&pavg "W"
+echo ""
+
+echo "=========================================="
+echo ""
+
+* Plot waveforms
+plot v(a) v(b)+2 v(out)+4
+xlabel 'Time (s)'
+ylabel 'Voltage (V)'
+
+.endc
+.end

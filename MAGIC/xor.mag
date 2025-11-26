@@ -1,0 +1,105 @@
+magic
+tech scmos
+timestamp 1763467655
+<< nwell >>
+rect 232 233 283 330
+<< ntransistor >>
+rect 244 155 246 195
+rect 252 155 254 195
+rect 266 155 268 195
+rect 274 155 276 195
+<< ptransistor >>
+rect 244 239 246 319
+rect 252 239 254 319
+rect 260 239 262 319
+rect 268 239 270 319
+<< ndiffusion >>
+rect 243 155 244 195
+rect 246 155 247 195
+rect 251 155 252 195
+rect 254 155 258 195
+rect 262 155 266 195
+rect 268 155 269 195
+rect 273 155 274 195
+rect 276 155 279 195
+<< pdiffusion >>
+rect 243 239 244 319
+rect 246 239 247 319
+rect 251 239 252 319
+rect 254 239 255 319
+rect 259 239 260 319
+rect 262 239 263 319
+rect 267 239 268 319
+rect 270 239 271 319
+<< ndcontact >>
+rect 239 155 243 195
+rect 247 155 251 195
+rect 258 155 262 195
+rect 269 155 273 195
+rect 279 155 283 195
+<< pdcontact >>
+rect 239 239 243 319
+rect 247 239 251 319
+rect 255 239 259 319
+rect 263 239 267 319
+rect 271 239 275 319
+<< polysilicon >>
+rect 244 319 246 333
+rect 252 319 254 333
+rect 260 319 262 333
+rect 268 319 270 333
+rect 244 231 246 239
+rect 252 231 254 239
+rect 260 231 262 239
+rect 268 231 270 239
+rect 244 195 246 198
+rect 252 195 254 198
+rect 266 195 268 198
+rect 274 195 276 198
+rect 244 152 246 155
+rect 252 152 254 155
+rect 266 152 268 155
+rect 274 152 276 155
+<< polycontact >>
+rect 243 333 247 337
+rect 251 333 255 337
+rect 259 333 263 337
+rect 267 333 271 337
+rect 241 198 246 202
+rect 250 198 254 202
+rect 266 198 270 202
+rect 274 198 278 202
+<< metal1 >>
+rect 226 341 289 345
+rect 226 326 230 341
+rect 239 326 243 330
+rect 226 322 243 326
+rect 239 319 243 322
+rect 271 326 275 330
+rect 285 326 289 341
+rect 271 322 289 326
+rect 271 319 275 322
+rect 255 219 259 239
+rect 255 215 262 219
+rect 258 195 262 215
+rect 239 148 243 155
+rect 279 148 283 155
+rect 239 143 284 148
+<< labels >>
+rlabel metal1 241 343 241 343 5 f
+rlabel polycontact 245 335 245 335 1 a1b
+rlabel polycontact 253 335 253 335 1 b1
+rlabel polycontact 261 335 261 335 1 b1b
+rlabel polycontact 269 335 269 335 1 a1
+rlabel metal1 255 144 255 144 1 gnd
+rlabel pdcontact 249 287 249 287 1 kp11
+rlabel pdcontact 264 284 264 284 1 kp12
+rlabel metal1 257 221 257 221 1 p1
+rlabel ndcontact 249 175 249 175 1 kp13
+rlabel ndcontact 271 175 271 175 1 kp14
+rlabel polycontact 276 200 276 200 1 b1
+rlabel polycontact 268 200 268 200 1 a1
+rlabel polycontact 244 200 244 200 1 b1b
+rlabel polycontact 252 200 252 200 1 a1b
+rlabel nwell 235 317 235 317 1 f
+<< end >>

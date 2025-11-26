@@ -1,0 +1,54 @@
+* SPICE3 file created from nand_2.ext - technology: scmos
+
+.include "/home/sangam/Documents/VLSI_PROJ_2017/MAGIC/TSMC_180nm.txt"
+.option scale=0.09u
+.subckt nand_2 a b out vdd Gnd 
+M1000 a_2_15# a out Gnd CMOSN w=40 l=2
++  ad=240 pd=92 as=200 ps=90
+M1001 vdd a out w_n11_71# CMOSP w=40 l=2
++  ad=240 pd=92 as=400 ps=180
+M1002 gnd b a_2_15# Gnd CMOSN w=40 l=2
++  ad=200 pd=90 as=0 ps=0
+M1003 out b vdd w_n11_71# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+C0 vdd out 0.87fF
+C1 a b 0.27fF
+C2 b out 0.08fF
+C3 w_n11_71# vdd 0.02fF
+C4 w_n11_71# b 0.08fF
+C5 a out 0.08fF
+C6 a_2_15# gnd 0.41fF
+C7 a w_n11_71# 0.08fF
+C8 w_n11_71# out 0.14fF
+C9 a_2_15# out 0.41fF
+C10 gnd Gnd 0.07fF
+C11 a_2_15# Gnd 0.01fF
+C12 vdd Gnd 0.01fF
+C13 out Gnd 0.08fF
+C14 b Gnd 0.12fF
+C15 a Gnd 0.12fF
+C16 w_n11_71# Gnd 1.67fF
+.ends
+
+* Test circuit for NAND gate
+Xnand a b out vdd gnd nand_2
+
+* Power supply
+Vdd vdd gnd 5V
+
+* Input signals
+Va a gnd PULSE(0 5 0n 0.1n 0.1n 10n 20n)
+Vb b gnd PULSE(0 5 0n 0.1n 0.1n 20n 40n)
+
+* Transistor models
+.model CMOSN NMOS (LEVEL=3 VTO=0.7 TOX=200E-10 NSUB=1E17 UO=600)
+.model CMOSP PMOS (LEVEL=3 VTO=-0.7 TOX=200E-10 NSUB=1E17 UO=250)
+
+* Analysis
+.tran 0.1n 80n
+.print tran v(a) v(b) v(out)
+.control
+run
+plot v(a) v(b)+2 v(out)+4
+.endc
+.end
