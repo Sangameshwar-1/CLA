@@ -1,0 +1,60 @@
+* ============================================================
+* 5-bit Carry Lookahead Adder Test Bench
+* File: t_merge.cir
+* Tests the CLA subcircuit with various input combinations
+* ============================================================
+
+.include "/home/sangam/Documents/VLSI_PROJ_2017/MAGIC/TSMC_180nm.txt"
+.include "merge.cir"
+
+.param width_P=0.18u width_N=0.09u LAMBDA=0.09u vddval=1.8
+
+* Power supply
+Vvdd vdd 0 DC {vddval}
+
+* ===== Test Vector Generation (PWL sources) =====
+* Test Case 1: 0 + 0 = 0 (0ns-200ns)
+* Test Case 2: 5 + 3 = 8 (200ns-400ns)  [A=00101, B=00011]
+* Test Case 3: 15 + 15 = 30 (400ns-600ns) [A=01111, B=01111]
+* Test Case 4: 31 + 31 = 62 (600ns-800ns) [A=11111, B=11111]
+* Test Case 5: 7 + 8 = 15 (800ns-1000ns) [A=00111, B=01000]
+
+* Input A bits
+VA0 A0 0 PWL(0n 0  199n 0   201n 1.8  399n 1.8  401n 1.8  599n 1.8  601n 1.8  799n 1.8  801n 1.8  999n 1.8  1001n 0)
+VA1 A1 0 PWL(0n 0  199n 0   201n 0    399n 0    401n 1.8  599n 1.8  601n 1.8  799n 1.8  801n 1.8  999n 1.8  1001n 1.8)
+VA2 A2 0 PWL(0n 0  199n 0   201n 0    399n 0    401n 0    599n 0    601n 1.8  799n 1.8  801n 1.8  999n 1.8  1001n 1.8)
+VA3 A3 0 PWL(0n 0  199n 0   201n 0    399n 0    401n 0    599n 0    601n 0    799n 0    801n 0    999n 0    1001n 0)
+VA4 A4 0 PWL(0n 0  199n 0   201n 0    399n 0    401n 0    599n 0    601n 0    799n 0    801n 0    999n 0    1001n 0)
+
+* Input B bits
+VB0 B0 0 PWL(0n 0  199n 0   201n 1.8  399n 1.8  401n 1.8  599n 1.8  601n 0    799n 0    801n 0    999n 0    1001n 0)
+VB1 B1 0 PWL(0n 0  199n 0   201n 1.8  399n 1.8  401n 1.8  599n 1.8  601n 1.8  799n 1.8  801n 1.8  999n 1.8  1001n 0)
+VB2 B2 0 PWL(0n 0  199n 0   201n 0    399n 0    401n 1.8  599n 1.8  601n 0    799n 0    801n 0    999n 0    1001n 0)
+VB3 B3 0 PWL(0n 0  199n 0   201n 0    399n 0    401n 0    599n 0    601n 1.8  799n 1.8  801n 0    999n 0    1001n 0)
+VB4 B4 0 PWL(0n 0  199n 0   201n 0    399n 0    401n 0    599n 0    601n 0    799n 0    801n 0    999n 0    1001n 0)
+
+* Carry input
+VC0 C0 0 DC 0
+
+* ===== CLA Subcircuit Instantiation =====
+Xcla vdd gnd A0 A1 A2 A3 A4 B0 B1 B2 B3 B4 C0 C1 C2 C3 C4 Cout P0 P1 P2 P3 P4 G0 G1 G2 G3 S0 S1 S2 S3 S4 cla
+
+* ===== Output Load Capacitances =====
+Cload_s0 S0 0 10f
+Cload_s1 S1 0 10f
+Cload_s2 S2 0 10f
+Cload_s3 S3 0 10f
+Cload_s4 S4 0 10f
+Cload_cout Cout 0 10f
+
+* ===== Simulation Options =====
+.tran 1n 1200n
+
+.control
+run
+plot  v(A0) v(A1)+2 v(A2)+4 v(A3)+6 v(A4)+8
+plot  v(B0) v(B1)+2 v(B2)+4 v(B3)+6 v(B4)+8
+plot v(S0) v(S1)+2 v(S2)+4 v(S3)+6 v(S4)+8 v(Cout)+10
+.endc
+
+.end
